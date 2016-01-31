@@ -100,13 +100,14 @@ function Foltmeter(config) {
     paths.map(function(path, i) {
       foltmeter = path.__foltmeter__;
 
-      minPathValue = (i === 0) ? 0 : svgDataMax[i-1];
+      minPathValue = (i === 0) ? 0 : (svgDataMax[i-1] - svgDataMin[i]);
       maxPathValue += svgDataMax[i] - svgDataMin[i];
 
       foltmeter.svgData = [svgDataMin[i], svgDataMax[i]];
       foltmeter.evalData = [minPathValue, maxPathValue];
 
       foltmeter.pointValue = (maxValue * ((svgDataMax[i] - svgDataMin[i]) / maxValue)) / foltmeter.data[1];
+
       foltmeter.minPointsAvailable = minPathValue * foltmeter.pointValue;
       foltmeter.maxPointsAvailable = foltmeter.pointValue * foltmeter.data[1];
     });
@@ -121,6 +122,8 @@ function Foltmeter(config) {
   return new Foltmeter();
 
   function set(newValue, newDuration) {
+    if(!_checkValidValue(newValue)) { return; }
+
     textValue = newValue;
     fillValue = newValue;
     duration = newDuration;
@@ -142,18 +145,6 @@ function Foltmeter(config) {
   function _checkD3() {
     if(!window.d3)
       throw new Error('Foltmeter requires d3');
-  }
-
-  function _checkValidConfig(cfg) {
-    if(
-      Object.prototype.toString.call(cfg).indexOf('Object') === 1 ||
-      typeof cfg.selector === 'undefined' ||
-      typeof cfg.colors === 'undefined' ||
-      typeof cfg.radii === 'undefined' ||
-      typeof cfg.data === 'undefined'
-    ) {
-      throw new Error('Foltmeter requires a valid config object');
-    }
   }
 
   function _createDataset(rangeSet, data) {
@@ -183,6 +174,22 @@ function Foltmeter(config) {
     var range = paths[i].__foltmeter__.range;
 
     return [_singleValue(data[0], _rad(range[0]), _getPercentVal(data[0], data[1], range[0], range[1]))];
+  }
+
+  function _checkValidConfig(cfg) {
+    if(
+      Object.prototype.toString.call(cfg).indexOf('Object') === 1 ||
+      typeof cfg.selector === 'undefined' ||
+      typeof cfg.colors === 'undefined' ||
+      typeof cfg.radii === 'undefined' ||
+      typeof cfg.data === 'undefined'
+    ) {
+      throw new Error('Foltmeter requires a valid config object');
+    }
+  }
+
+  function _checkValidValue(value) {
+    return typeof value === 'string' ? /^(\d{1,})(\.)?(\d{1,})?$/g.test(value) : true;
   }
 
   function _draw() {
