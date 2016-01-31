@@ -37,6 +37,7 @@ angular.module('App', ['foltmeter.module'])
     $scope.meterDuration= 250;
   
     $scope.meterConfig = {
+    selector: '#testTarget', //Selector must still be provided as of now
       colors: ['#CFD8DC', '#455A64'], //Background color and foreground color for the meter
       radii: [50, 60], //Inner radius and outer radius for the meter
       data: [100, 500, 1000], //Breakpoints for the meter e.g. 0-100 is first bar, 101-500 is second bar, 501-1000 is last bar
@@ -53,6 +54,5 @@ angular.module('App', ['foltmeter.module'])
 ```
 ```html
 <!-- Creates the meter via an AngularJS directive -->
-<!-- NOTE: Must put an id on the meter directive element -->
-<div id="meterId" ng-controller="ExampleController" foltmeter="meterConfig" foltmeter-value="meterValue" foltmeter-duration="meterDuration"></div>
+<div id="testTarget" ng-controller="ExampleController" foltmeter="meterConfig" foltmeter-value="meterValue" foltmeter-duration="meterDuration"></div>
 ```
