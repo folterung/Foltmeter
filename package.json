@@ -1,0 +1,24 @@
+{
+  "name": "Foltmeter",
+  "version": "1.0.0",
+  "description": "Meter using d3",
+  "main": "src/Foltmeter.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/folterung/Foltmeter.git"
+  },
+  "author": "Kevin Warnock",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/folterung/Foltmeter/issues"
+  },
+  "homepage": "https://github.com/folterung/Foltmeter",
+  "dependencies": {
+    "gulp": "^3.9.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.5.1"
+  }
+}
