@@ -27,18 +27,22 @@ function Foltmeter(config) {
 
     var minPathValue = 0;
     var maxPathValue = 0;
+    var newData = [];
     var foltmeter;
 
     config.data.map(function(data) {
-      maxValue += data[1];
+      maxValue += data;
+      newData.push([0, data]);
     });
 
     el = d3.select(config.selector);
+    el.selectAll('svg').remove();
     arc = d3.svg.arc().innerRadius(config.radii[0]).outerRadius(config.radii[1]);
     svg = el.append('svg').attr('height', height).attr('width', width);
 
     group1 = svg.append('g').attr('transform', 'translate(' + width/2 + ',' + (height/2) + ')');
     group2 = svg.append('g').attr('transform', 'translate(' + width/2 + ',' + (height/2) + ')');
+
     textNode = svg.append('text')
       .attr('style', 'font-size: 20px; color: #455A64;')
       .attr('dy', '20px')
@@ -64,7 +68,7 @@ function Foltmeter(config) {
       });
 
     group1.selectAll('path')
-      .data(_createMaxDataset(config.ranges, config.data))
+      .data(_createMaxDataset(config.ranges, newData))
       .enter()
       .append('path')
       .attr('fill', config.colors[0])
@@ -74,14 +78,14 @@ function Foltmeter(config) {
       });
 
     group2.selectAll('path')
-      .data(_createDataset(config.ranges, config.data))
+      .data(_createDataset(config.ranges, newData))
       .enter()
       .append('path')
       .attr('fill', config.colors[1])
       .attr('d', arc)
       .each(function(d, i) {
         this.__foltmeter__ = {
-          data: config.data[i],
+          data: newData[i],
           range: config.ranges[i]
         };
 
@@ -229,9 +233,6 @@ function Foltmeter(config) {
         })
         .attrTween('d', _arcTween);
     }
-
-    group2.selectAll('path')
-      .data(_createDataset(config.ranges, config.data));
   }
 
   function _getPercentVal(num1, num2, minDeg, maxDeg) {

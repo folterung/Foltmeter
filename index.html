@@ -5,13 +5,18 @@
   <title></title>
 </head>
 <body ng-controller="FoltController as fc">
-  <button onclick="minimumBalance();">Minimum Balance</button>
-  <button onclick="interestSaver();">Interest Saver</button>
-  <button onclick="sinceLastStatement();">Since Last Statement</button>
-  <button onclick="fullBalance();">Full Balance</button>
+  <button ng-click="fc.minimumBalance();">Minimum Balance</button>
+  <button ng-click="fc.interestSaver();">Interest Saver</button>
+  <button ng-click="fc.sinceLastStatement();">Since Last Statement</button>
+  <button ng-click="fc.fullBalance();">Full Balance</button>
+  <button ng-click="fc.toggleInterestSaver();">Toggle Interest Saver</button>
+
+  <div>
+    <input type="text" ng-model="fc.value"/>
+  </div>
 
   <div id="testTarget"></div>
-  <div id="testAngular" foltmeter="fc.config"></div>
+  <div id="testAngular" foltmeter="fc.config" foltmeter-value="fc.value" foltmeter-duration="fc.duration"></div>
 
   <br/>
   <br/>
@@ -26,12 +31,7 @@
       selector: '#testTarget',
       colors: ['#CFD8DC', '#455A64'],
       radii: [50, 60],
-      data: [
-        [0, 100],
-        [0, 500],
-        [0, 1000],
-        [0, 2000]
-      ],
+      data: [100, 500, 1000, 2000],
       ranges: [
         [-135, -130],
         [-128, -70],
@@ -42,36 +42,15 @@
       width: 150
     });
 
-    function minimumBalance() {
-      meter.set(100, 500);
-    }
-
-    function interestSaver() {
-      meter.set(600, 500);
-    }
-
-    function sinceLastStatement() {
-      meter.set(1600, 500);
-    }
-
-    function fullBalance() {
-      meter.set(3600, 500);
-    }
-
     angular.module('FoltmeterApp', ['foltmeter.module'])
       .controller('FoltController', function() {
         var fc = this;
 
-        fc.config = {
+        var interestSaverConfig = {
           selector: '#testTarget',
           colors: ['#CFD8DC', '#455A64'],
           radii: [50, 60],
-          data: [
-            [0, 100],
-            [0, 500],
-            [0, 1000],
-            [0, 2000]
-          ],
+          data: [100, 500, 1000, 2000],
           ranges: [
             [-135, -130],
             [-128, -70],
@@ -81,6 +60,68 @@
           height: 150,
           width: 150
         };
+
+        var nonInterestSaverConfig = {
+          selector: '#testTarget',
+          colors: ['#CFD8DC', '#455A64'],
+          radii: [50, 60],
+          data: [100, 500, 1000],
+          ranges: [
+            [-135, -130],
+            [-128, -70],
+            [-68, 135]
+          ],
+          height: 150,
+          width: 150
+        };
+
+        fc.value = 0;
+        fc.duration = 250;
+
+        fc.config = {
+          selector: '#testTarget',
+          colors: ['#CFD8DC', '#455A64'],
+          radii: [50, 60],
+          data: [100, 500, 1000, 2000],
+          ranges: [
+            [-135, -130],
+            [-128, -70],
+            [-68, 10],
+            [12, 135]
+          ],
+          height: 150,
+          width: 150
+        };
+
+        fc.minimumBalance = minimumBalance;
+        fc.interestSaver = interestSaver;
+        fc.sinceLastStatement = sinceLastStatement;
+        fc.fullBalance = fullBalance;
+        fc.toggleInterestSaver = toggleInterestSaver;
+
+        function minimumBalance() {
+          fc.value = 100;
+        }
+
+        function interestSaver() {
+          fc.value = 600;
+        }
+
+        function sinceLastStatement() {
+          fc.value = 1600;
+        }
+
+        function fullBalance() {
+          fc.value = 3600;
+        }
+
+        function toggleInterestSaver() {
+          if(fc.config.data.length > 3) {
+            fc.config = nonInterestSaverConfig;
+          } else {
+            fc.config = interestSaverConfig;
+          }
+        }
       });
   </script>
 </body>
