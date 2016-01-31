@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <button onclick="minimumBalance();">Minimum Balance</button>
+  <button onclick="interestSaver();">Interest Saver</button>
+  <button onclick="sinceLastStatement();">Since Last Statement</button>
+  <button onclick="fullBalance();">Full Balance</button>
+
+  <div id="testTarget"></div>
+
+  <br/>
+  <br/>
+
+  <script src="bower_components/d3/d3.min.js"></script>
+  <script src="src/Foltmeter.js"></script>
+  <script>
+    var meter = new Foltmeter({
+      selector: '#testTarget',
+      colors: ['#CFD8DC', '#455A64'],
+      radii: [60, 70],
+      data: [
+        [0, 100],
+        [0, 500],
+        [0, 1000],
+        [0, 2000]
+      ],
+      ranges: [
+        [-135, -130],
+        [-128, -70],
+        [-68, 10],
+        [12, 135]
+      ],
+      height: 200,
+      width: 200
+    });
+
+    function minimumBalance() {
+      meter.set(100, 500);
+    }
+
+    function interestSaver() {
+      meter.set(600, 500);
+    }
+
+    function sinceLastStatement() {
+      meter.set(1600, 500);
+    }
+
+    function fullBalance() {
+      meter.set(3600, 500);
+    }
+  </script>
+</body>
+</html>

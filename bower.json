@@ -1,0 +1,26 @@
+{
+  "name": "Foltmeter",
+  "version": "1.0.0",
+  "homepage": "https://github.com/folterung/Foltmeter",
+  "authors": [
+    "Kevin Warnock <kevin.warnock@capitalone.com>"
+  ],
+  "description": "Meter using d3",
+  "main": "src/Foltmeter.js",
+  "keywords": [
+    "d3",
+    "meter"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "foltest": "~0.0.7",
+    "d3": "~3.5.14"
+  }
+}
