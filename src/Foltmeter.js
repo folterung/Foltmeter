@@ -43,29 +43,31 @@ function Foltmeter(config) {
     group1 = svg.append('g').attr('transform', 'translate(' + width/2 + ',' + (height/2) + ')');
     group2 = svg.append('g').attr('transform', 'translate(' + width/2 + ',' + (height/2) + ')');
 
-    textNode = svg.append('text')
-      .attr('style', 'font-size: 20px; color: #455A64;')
-      .attr('dy', '20px')
-      .text('0')
-      .attr('text-anchor', 'middle')
-      .attr('x', function() {
-        return width/2 - this.getBBox().width+3;
-      })
-      .attr('y', function() {
-        return height/2 - this.getBBox().height/2;
-      });
+    if(config.showPercentage) {
+      textNode = svg.append('text')
+        .attr('style', 'font-size: 20px; color: #455A64;')
+        .attr('dy', '20px')
+        .text('0')
+        .attr('text-anchor', 'middle')
+        .attr('x', function() {
+          return width/2 - this.getBBox().width+3;
+        })
+        .attr('y', function() {
+          return height/2 - this.getBBox().height/2;
+        });
 
-    svg.append('text')
-      .attr('style', 'font-size: 20px; color: #455A64;')
-      .attr('dy', '20px')
-      .text('%')
-      .attr('text-anchor', 'middle')
-      .attr('x', function() {
-        return width/2 + this.getBBox().width;
-      })
-      .attr('y', function() {
-        return height/2 - this.getBBox().height/2;
-      });
+      svg.append('text')
+        .attr('style', 'font-size: 20px; color: #455A64;')
+        .attr('dy', '20px')
+        .text('%')
+        .attr('text-anchor', 'middle')
+        .attr('x', function() {
+          return width/2 + this.getBBox().width;
+        })
+        .attr('y', function() {
+          return height/2 - this.getBBox().height/2;
+        });
+    }
 
     group1.selectAll('path')
       .data(_createMaxDataset(config.ranges, newData))
@@ -191,18 +193,20 @@ function Foltmeter(config) {
 
     _updatePath(startIndex, false);
 
-    textNode
-      .data([(textValue / maxValue * 100)])
-      .transition()
-      .duration(chunk * textAnimationIndex)
-      .ease('linear')
-      .tween('text', function(d) {
-        var i = d3.interpolate(this.textContent, d);
+    if(config.showPercentage) {
+      textNode
+        .data([(textValue / maxValue * 100)])
+        .transition()
+        .duration(chunk * textAnimationIndex)
+        .ease('linear')
+        .tween('text', function(d) {
+          var i = d3.interpolate(this.textContent, d);
 
-        return function(t) {
-          this.textContent = Math.round(i(t));
-        };
-      });
+          return function(t) {
+            this.textContent = Math.round(i(t));
+          };
+        });
+    }
 
     function _updatePath(i) {
       var pathNode;

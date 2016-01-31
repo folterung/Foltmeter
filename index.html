@@ -58,7 +58,8 @@
             [12, 135]
           ],
           height: 150,
-          width: 150
+          width: 150,
+          showPercentage: true
         };
 
         var nonInterestSaverConfig = {
@@ -72,26 +73,14 @@
             [-68, 135]
           ],
           height: 150,
-          width: 150
+          width: 150,
+          showPercentage: false
         };
 
         fc.value = 0;
         fc.duration = 250;
 
-        fc.config = {
-          selector: '#testTarget',
-          colors: ['#CFD8DC', '#455A64'],
-          radii: [50, 60],
-          data: [100, 500, 1000, 2000],
-          ranges: [
-            [-135, -130],
-            [-128, -70],
-            [-68, 10],
-            [12, 135]
-          ],
-          height: 150,
-          width: 150
-        };
+        fc.config = interestSaverConfig;git
 
         fc.minimumBalance = minimumBalance;
         fc.interestSaver = interestSaver;
