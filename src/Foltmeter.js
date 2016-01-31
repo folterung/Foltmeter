@@ -1,7 +1,3 @@
-(function(win) {
-
-})(window);
-
 function Foltmeter(config) {
   var animationIndex;
   var arc;
