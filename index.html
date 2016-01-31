@@ -1,27 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="FoltmeterApp">
 <head lang="en">
   <meta charset="UTF-8">
   <title></title>
 </head>
-<body>
+<body ng-controller="FoltController as fc">
   <button onclick="minimumBalance();">Minimum Balance</button>
   <button onclick="interestSaver();">Interest Saver</button>
   <button onclick="sinceLastStatement();">Since Last Statement</button>
   <button onclick="fullBalance();">Full Balance</button>
 
   <div id="testTarget"></div>
+  <div id="testAngular" foltmeter="fc.config"></div>
 
   <br/>
   <br/>
 
   <script src="bower_components/d3/d3.min.js"></script>
   <script src="src/Foltmeter.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="src/angular.foltmeter.js"></script>
+
   <script>
     var meter = new Foltmeter({
       selector: '#testTarget',
       colors: ['#CFD8DC', '#455A64'],
-      radii: [60, 70],
+      radii: [50, 60],
       data: [
         [0, 100],
         [0, 500],
@@ -34,8 +38,8 @@
         [-68, 10],
         [12, 135]
       ],
-      height: 200,
-      width: 200
+      height: 150,
+      width: 150
     });
 
     function minimumBalance() {
@@ -53,6 +57,31 @@
     function fullBalance() {
       meter.set(3600, 500);
     }
+
+    angular.module('FoltmeterApp', ['foltmeter.module'])
+      .controller('FoltController', function() {
+        var fc = this;
+
+        fc.config = {
+          selector: '#testTarget',
+          colors: ['#CFD8DC', '#455A64'],
+          radii: [50, 60],
+          data: [
+            [0, 100],
+            [0, 500],
+            [0, 1000],
+            [0, 2000]
+          ],
+          ranges: [
+            [-135, -130],
+            [-128, -70],
+            [-68, 10],
+            [12, 135]
+          ],
+          height: 150,
+          width: 150
+        };
+      });
   </script>
 </body>
 </html>
