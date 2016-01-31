@@ -28,8 +28,9 @@ foltmeter.set(600, 250); //Set the meter value to 600 over 250 milliseconds
 ## Use in AngularJS application
 Load the angular.foltmeter.js file
 ```javascript
-//Load the angular.foltmeter.js file
-//Include the foltmeter.module in your App's module
+//Load the foltmeter.js file
+//Then load the angular.foltmeter.js file
+//Then include the foltmeter.module in your App's module
 angular.module('App', ['foltmeter.module'])
   .controller('ExampleController', function($scope) {
     $scope.meterValue = 0;
