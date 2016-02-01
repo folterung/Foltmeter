@@ -1,6 +1,8 @@
 # Foltmeter
 Meter using d3
 
+##### Demo : [Check it out here!](http://folterung.github.io/Foltmeter/)
+
 ## Install
     bower install foltmeter
     
