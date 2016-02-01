@@ -28,11 +28,14 @@ function Foltmeter(config) {
     var minPathValue = 0;
     var maxPathValue = 0;
     var newData = [];
+    var minDataValue = 0;
     var foltmeter;
 
-    config.data.map(function(data) {
-      maxValue += data;
-      newData.push([0, data]);
+    maxValue = config.data[config.data.length-1];
+
+    config.data.map(function(data, i) {
+      minDataValue = config.data[i-1] || 0;
+      newData.push([0, data - minDataValue]);
     });
 
     el = d3.select(config.selector);
@@ -87,7 +90,7 @@ function Foltmeter(config) {
       .attr('d', arc)
       .each(function(d, i) {
         this.__foltmeter__ = {
-          data: newData[i],
+          data: [0, newData[i][1]],
           range: config.ranges[i]
         };
 
@@ -300,11 +303,9 @@ function Foltmeter(config) {
 
   function _setCurrentMeterValue() {
     var meterValue = 0;
-    var maxValue = 0;
 
     paths.map(function(path, i) {
       meterValue += path.getTotalLength() - path.__foltmeter__.svgData[0];
-      maxValue += path.__foltmeter__.svgData[1] - path.__foltmeter__.svgData[0];
     });
 
     currentMeterValue = meterValue;

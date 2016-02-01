@@ -22,9 +22,9 @@
   <br/>
 
   <script src="bower_components/d3/d3.min.js"></script>
-  <script src="dist/foltmeter.min.js"></script>
+  <script src="src/foltmeter.js"></script>
   <script src="bower_components/angular/angular.js"></script>
-  <script src="dist/angular.foltmeter.min.js"></script>
+  <script src="src/angular.foltmeter.js"></script>
 
   <script>
     var meter = new Foltmeter({
@@ -50,7 +50,7 @@
           selector: '#testTarget',
           colors: ['#CFD8DC', '#455A64'],
           radii: [50, 60],
-          data: [100, 500, 1000, 2000],
+          data: [100, 500, 2101, 2500],
           ranges: [
             [-135, -130],
             [-128, -70],
@@ -59,14 +59,14 @@
           ],
           height: 150,
           width: 150,
-          showPercentage: true
+          showPercentage: false
         };
 
         var nonInterestSaverConfig = {
           selector: '#testTarget',
           colors: ['#CFD8DC', '#455A64'],
           radii: [50, 60],
-          data: [100, 500, 1000],
+          data: [100, 500, 2101],
           ranges: [
             [-135, -130],
             [-128, -70],
@@ -93,15 +93,15 @@
         }
 
         function interestSaver() {
-          fc.value = 600;
+          fc.value = 500;
         }
 
         function sinceLastStatement() {
-          fc.value = 1600;
+          fc.value = 2101;
         }
 
         function fullBalance() {
-          fc.value = 3600;
+          fc.value = 2500;
         }
 
         function toggleInterestSaver() {
