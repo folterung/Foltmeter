@@ -15,8 +15,8 @@
     <input type="text" ng-model="fc.value"/>
   </div>
 
-  <div id="testTarget"></div>
-  <div id="testAngular" foltmeter="fc.config" foltmeter-value="fc.value" foltmeter-duration="fc.duration"></div>
+  <!--<div id="testTarget"></div>-->
+  <div foltmeter="fc.config" foltmeter-value="fc.value" foltmeter-duration="fc.duration"></div>
 
   <br/>
   <br/>
@@ -29,6 +29,7 @@
   <script>
     var meter = new Foltmeter({
       selector: '#testTarget',
+      textColor: '#455A64',
       colors: ['#CFD8DC', '#455A64'],
       radii: [50, 60],
       data: [100, 500, 1000, 2000],
@@ -47,7 +48,7 @@
         var fc = this;
 
         var interestSaverConfig = {
-          selector: '#testTarget',
+          textColor: '#455A64',
           colors: ['#CFD8DC', '#455A64'],
           radii: [50, 60],
           data: [100, 500, 2101, 2500],
@@ -59,11 +60,11 @@
           ],
           height: 150,
           width: 150,
-          showPercentage: false
+          showPercentage: true
         };
 
         var nonInterestSaverConfig = {
-          selector: '#testTarget',
+          textColor: '#455A64',
           colors: ['#CFD8DC', '#455A64'],
           radii: [50, 60],
           data: [100, 500, 2101],
@@ -74,7 +75,7 @@
           ],
           height: 150,
           width: 150,
-          showPercentage: false
+          showPercentage: true
         };
 
         fc.value = 0;

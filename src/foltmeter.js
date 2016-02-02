@@ -32,6 +32,7 @@ function Foltmeter(config) {
     var foltmeter;
 
     maxValue = config.data[config.data.length-1];
+    config.textColor = config.textColor ? config.textColor : '#455A64';
 
     config.data.map(function(data, i) {
       minDataValue = config.data[i-1] || 0;
@@ -40,6 +41,7 @@ function Foltmeter(config) {
 
     el = d3.select(config.selector);
     el.selectAll('svg').remove();
+
     arc = d3.svg.arc().innerRadius(config.radii[0]).outerRadius(config.radii[1]);
     svg = el.append('svg').attr('height', height).attr('width', width);
 
@@ -48,7 +50,8 @@ function Foltmeter(config) {
 
     if(config.showPercentage) {
       textNode = svg.append('text')
-        .attr('style', 'font-size: 20px; color: #455A64;')
+        .attr('fill', config.textColor)
+        .attr('style', 'font-size: 20px;')
         .attr('dy', '20px')
         .text('0')
         .attr('text-anchor', 'middle')
@@ -60,7 +63,8 @@ function Foltmeter(config) {
         });
 
       svg.append('text')
-        .attr('style', 'font-size: 20px; color: #455A64;')
+        .attr('fill', config.textColor)
+        .attr('style', 'font-size: 20px;')
         .attr('dy', '20px')
         .text('%')
         .attr('text-anchor', 'middle')

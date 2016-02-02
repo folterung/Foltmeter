@@ -18,6 +18,8 @@
   }
 
   function link(scope, element, attrs) {
+    scope.foltmeter.selector = element[0];
+
     var meter = new Foltmeter(scope.foltmeter);
 
     scope.$watch('foltmeter', function() {
